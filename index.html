@@ -1,1 +1,294 @@
-<h1>hi</hi>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-12 col-md-4 col-lg-4 border-end order-2 order-md-1">
+          <div>
+              <h6>ใบรายการอาหาร</h6>
+              <div class="row">
+                  <div class="col-6">
+                      <div style="display: inline-flex;">
+                          <div class="pt-2 me-2">
+                              <h6>โต๊ะ</h6>
+                          </div>
+                          <select class="form-select">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-6">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                          <label class="form-check-label" for="flexRadioDefault1">
+                              ทานที่ร้าน
+                          </label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                          <label class="form-check-label" for="flexRadioDefault2">
+                              ห่อใส่ถุง
+                          </label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>รายการ</th>
+                      <th class="text-center">จำนวน</th>
+                      <th class="text-end">ราคา</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td class="pe-0"><button class="btn-close btn-sm p-0"></button></td>
+                      <td>เล็ก น้ำตก เนื้อรวม พิเศษ</td>
+                      <td class="text-center">1</td>
+                      <td class="text-end">60</td>
+                  </tr>
+              </tbody>
+              <tfoot>
+                  <tr>
+                      <td></td>
+                      <td colspan="2">รวม</td>
+                      <td class="text-end">60</td>
+                  </tr>
+              </tfoot>
+          </table>
+          <div class="text-end">
+              <button class="btn btn-sm btn-secondary">พิมพ์</button>
+              <button class="btn btn-sm btn-success">ยืนยัน</button>
+          </div>
+      </div>
+      <div class="col-12 col-md-8 col-lg-8 order-1 order-md-2">
+          <p>
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseMain" role="button" aria-expanded="false" aria-controls="collapseMain">
+                  สั่งก๋วยเตี๋ยว
+              </a>
+          </p>
+          <div class="collapse show" id="collapseMain">
+              <div>
+                  <div>
+                      <div class="mb-1">
+                          <label class="text-secondary">เลือกเส้น <span class="text-danger">*</span></label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
+                              @{
+                                  string[] noodles_name = { "เกาเหลา", "เล็ก", "หมี่", "บะหมี่", "บะหมี่ 2 ก้อน", "มันหนึบ" };
+                                  string[] noodles_price = { "+10", "+0", "+0", "+0", "+10", "+10" };
+                                  string[] noodles_image = {
+                      "https://f.ptcdn.info/487/028/000/1424059135-dsc01354-o.jpg",
+                      "https://www.simummuangmarket.com/uploads/image-1579659833771.jpg",
+                      "https://th-test-11.slatic.net/p/38f7e0d2567de71b6718d2fbe6adcbaa.jpg",
+                      "https://cf.shopee.co.th/file/e55a7117d5226ae9cbdb252c1838855f",
+                      "https://cf.shopee.co.th/file/e55a7117d5226ae9cbdb252c1838855f",
+                      "https://lzd-img-global.slatic.net/g/p/9a0038e0734375070bc55eb442a5097e.jpg_1200x1200q80.jpg_.webp"
+                  };
+                              }
+                              @for (int i = 0; i < noodles_name.Length; i++)
+                              {
+                                  <div class="col">
+                                      <div class="card py-1">
+                                          @*<div class="mb-1">
+                                              <img style="width: -webkit-fill-available; max-height: 90px;" src="@noodles_image[i]" />
+                                          </div>*@
+                                          <div>
+                                              <label class="fs-6">@noodles_name[i]</label>
+                                          </div>
+                                          <div>
+                                              <small class="text-secondary">@noodles_price[i]</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      </div>
+                      <div class="mb-1">
+                          <label class="text-secondary">เลือกน้ำ <span class="text-danger">*</span></label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
+                              @{
+                                  string[] main_name = { "น้ำตก", "น้ำใส", "แห้ง", "แห้งซอสเผ็ด", "หมาล่า", "ต้มยำ" };
+                                  string[] main_price = { "+50", "+50", "+50", "+60", "+60", "+50" };
+                                  string[] main_image = {
+                      "https://scontent.fbkk12-1.fna.fbcdn.net/v/t39.30808-6/271967212_4711558195627420_9208886525427818072_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c4c01c&_nc_eui2=AeEqBoAjVk9oiZj4eqmX462JtwwHocelPvC3DAehx6U-8IGUVH9mn695CNpumoBYDi4eYW_ZFENiTzeZwZPST_Gr&_nc_ohc=rdS1yyG-JS8AX8r-Wvj&_nc_ht=scontent.fbkk12-1.fna&oh=00_AfDbOivh13Z9ioiIocwpYSNHShYUM--v8PhS6Gj2Y9Bliw&oe=64A66BF2",
+                      "https://scontent.fbkk12-4.fna.fbcdn.net/v/t39.30808-6/272096596_4711560655627174_7639266343371083337_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c4c01c&_nc_eui2=AeEsIyI4ydjDler2XzBLnujaoWYYe1iXmJShZhh7WJeYlJZWpgO3q6dlJm661JNsQFEeeOIIrIgQCiFLxvcPaUtp&_nc_ohc=cuaXMCZMXkcAX9nhRTs&_nc_ht=scontent.fbkk12-4.fna&oh=00_AfAGo1sGRFH13km5bpk-87hwQ_CBuRbhHIxfn3Ec1wMSwQ&oe=64A6D4E5",
+                      "https://scontent.fbkk13-2.fna.fbcdn.net/v/t39.30808-6/272049722_4711562402293666_7170111448544436399_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=c4c01c&_nc_eui2=AeFn_-wvNrZM_di63b5B9HHlWXyZyHf6nEdZfJnId_qcRwl7i9TvQn3wzSHEh9CIhM_12N476bSfpK9FKzDvsCrz&_nc_ohc=udH8xF8SA4QAX-PjRlN&_nc_ht=scontent.fbkk13-2.fna&oh=00_AfD9lD_5V3zEGXfNExV_85ynyU3U9Hk0TSj7rQxNwScSMA&oe=64A76B2E",
+                      "https://scontent.fbkk12-4.fna.fbcdn.net/v/t39.30808-6/356355467_798558318311204_5345129138876313421_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeG9oB8htxCiYopvCXm-4g4pWUJRFPlIkDtZQlEU-UiQOz7fLGX_cjAAZnTkBUaZKo7bn2kGVxhVnlCUfMyzQjJ-&_nc_ohc=8_gZnvQIu3sAX9eaY1h&_nc_ht=scontent.fbkk12-4.fna&oh=00_AfCb84Uqu6eTb-FKGP2BKR1QYScKvxFoFvUuzhODQSR1Zg&oe=64A5BC9E",
+                      "https://scontent.fbkk12-3.fna.fbcdn.net/v/t39.30808-6/356387150_798556978311338_4310615648459655372_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFpC61DKPZleuqDzsQF9WbOggLLAKYO96aCAssApg73piPudD1rkSIvExnPyU5qWPx6nzu1kW5Uh63Hk-xzhlQy&_nc_ohc=wzgI5q30Ec0AX95SVrt&_nc_ht=scontent.fbkk12-3.fna&oh=00_AfCdWg44BHtgIfDptuMNWfCroyHcJ1GJE3MOLUAOUs295Q&oe=64A5BE6D",
+                      "https://scontent.fbkk12-3.fna.fbcdn.net/v/t39.30808-6/356387150_798556978311338_4310615648459655372_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFpC61DKPZleuqDzsQF9WbOggLLAKYO96aCAssApg73piPudD1rkSIvExnPyU5qWPx6nzu1kW5Uh63Hk-xzhlQy&_nc_ohc=wzgI5q30Ec0AX95SVrt&_nc_ht=scontent.fbkk12-3.fna&oh=00_AfCdWg44BHtgIfDptuMNWfCroyHcJ1GJE3MOLUAOUs295Q&oe=64A5BE6D"
+                  };
+                              }
+                              @for (int i = 0; i < main_name.Length; i++)
+                              {
+                                  <div class="col">
+                                      <div class="card py-1">
+                                          @*<div class="mb-1">
+                                              <img style="width: -webkit-fill-available; max-height: 90px;" src="@main_image[i]" />
+                                          </div>*@
+                                          <div>
+                                              <label class="fs-6">@main_name[i]</label>
+                                          </div>
+                                          <div>
+                                              <small class="text-secondary">@main_price[i]</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      </div>
+  
+                      <div class="mb-1">
+                          <label class="text-secondary">เลือกเนื้อ</label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
+                              @{
+                                  string[] beef_name = { "เนื้อรวม", "เนื้อสด", "เนื้อเปื่อย", "สไบนาง", "ลูกชิ้นเนื้อ" };
+                                  string[] beef_price = { "+0", "+0", "+0", "+0", "+0" };
+                              }
+                              @for (int i = 0; i < beef_name.Length; i++)
+                              {
+                                  <div class="col">
+                                      <div class="card py-1">
+                                          <div>
+                                              <label class="fs-6">@beef_name[i]</label>
+                                          </div>
+                                          <div>
+                                              <small class="text-secondary">@beef_price[i]</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      </div>
+                      <div class="mb-1">
+                          <label class="text-secondary">เลือกหมู</label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
+                              @{
+                                  string[] pork_name = { "หมูรวม", "หมูสด", "หมูเปื่อย", "ลูกชิ้นหมู" };
+                                  string[] pork_price = { "+0", "+0", "+0", "+0" };
+                              }
+                              @for (int i = 0; i < pork_name.Length; i++)
+                              {
+                                  <div class="col">
+                                      <div class="card py-1">
+                                          <div>
+                                              <label class="fs-6">@pork_name[i]</label>
+                                          </div>
+                                          <div>
+                                              <small class="text-secondary">@pork_price[i]</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      </div>
+                      <div class="mb-1">
+                          <label class="text-secondary">เลือกขนาด</label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
+                              @{
+                                  string[] size_name = { "ธรรมดา", "พิเศษ" };
+                                  string[] size_price = { "+0", "+10" };
+                              }
+                              @for (int i = 0; i < size_name.Length; i++)
+                              {
+                                  <div class="col">
+                                      <div class="card py-1">
+                                          <div>
+                                              <label class="fs-6">@size_name[i]</label>
+                                          </div>
+                                          <div>
+                                              <small class="text-secondary">@size_price[i]</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                          <label class="text-secondary">จำนวน</label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
+                              <div class="col">
+  
+                                  <select class="form-select">
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="alert alert-dark p-2" role="alert">
+                          <div class="row justify-content-between">
+                              <div class="col">
+                                  <label>เล็ก น้ำตก เนื้อรวม พิเศษ</label><br />
+                                  <label>จำนวน 1 รายการ</label><br />
+                                  <label>ราคา 60</label>
+                              </div>
+                              <div class="col text-end">
+                                  <button class="btn btn-secondary btn-sm">เคลียร์</button>
+                                  <button class="btn btn-primary btn-sm">เพิ่ม</button>
+                                  @*<button class="btn btn-primary btn-sm">อัพเดต</button>*@
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+  
+          <p>
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseSub" role="button" aria-expanded="false" aria-controls="collapseSub">
+                  อาหารเพิ่มเติม v
+              </a>
+          </p>
+          <div class="collapse show" id="collapseSub">
+              <div>
+                  <div>
+                      <div class="mb-1">
+                          <label class="text-secondary">น้ำ</label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-5 text-center">
+                              @{
+                                  string[] sub_name = { "โค๊ก", "แป๊ปซี่", "น้ำเปล่า"};
+                                  string[] sub_price = { "+15", "+15", "+10"};
+                                  string[] sub_image = {
+                      "https://f.ptcdn.info/487/028/000/1424059135-dsc01354-o.jpg",
+                      "https://www.simummuangmarket.com/uploads/image-1579659833771.jpg",
+                      "https://th-test-11.slatic.net/p/38f7e0d2567de71b6718d2fbe6adcbaa.jpg",
+                      "https://cf.shopee.co.th/file/e55a7117d5226ae9cbdb252c1838855f",
+                      "https://cf.shopee.co.th/file/e55a7117d5226ae9cbdb252c1838855f",
+                      "https://lzd-img-global.slatic.net/g/p/9a0038e0734375070bc55eb442a5097e.jpg_1200x1200q80.jpg_.webp"
+                  };
+                              }
+                              @for (int i = 0; i < sub_name.Length; i++)
+                              {
+                                  <div class="col">
+                                      <div class="card py-1">
+                                          @*<div class="mb-1">
+                                              <img style="width: -webkit-fill-available; max-height: 90px;" src="@noodles_image[i]" />
+                                          </div>*@
+                                          <div>
+                                              <label class="fs-6">@sub_name[i]</label>
+                                          </div>
+                                          <div>
+                                              <small class="text-secondary">@sub_price[i]</small>
+                                          </div>
+                                          <div class="px-2">
+                                              <div class="input-group mb-3 text-center">
+                                                  <span class="input-group-text">-</span>
+                                                  <input type="text" class="form-control text-center" aria-label="Amount" value="0">
+                                                  <span class="input-group-text">+</span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
