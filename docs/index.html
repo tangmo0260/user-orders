@@ -4,6 +4,8 @@
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+<link rel="stylesheet" href="./mystyle.css">
+
 <title>Hello, world!</title> 
 
 <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
@@ -28,7 +30,7 @@
   <div class="row">
       <div class="col-12 col-md-4 col-lg-4 border-end order-2 order-md-1">
           <div>
-            <button onclick="window.print()">Print</button>
+            <!-- <button onclick="window.print()">Print</button> -->
               <h6>ใบรายการอาหาร</h6>
               <div class="row">
                   <div class="col-6">
@@ -37,9 +39,17 @@
                               <h6>โต๊ะ</h6>
                           </div>
                           <select class="form-select">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
+                            <option selected value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
                           </select>
                       </div>
                   </div>
@@ -59,7 +69,7 @@
                   </div>
               </div>
           </div>
-          <table class="table">
+          <table class="table" id="data_list">
               <thead>
                   <tr>
                       <th></th>
@@ -69,18 +79,13 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td class="pe-0"><button class="btn-close btn-sm p-0"></button></td>
-                      <td>เล็ก น้ำตก เนื้อรวม พิเศษ</td>
-                      <td class="text-center">1</td>
-                      <td class="text-end">60</td>
-                  </tr>
+                  
               </tbody>
               <tfoot>
                   <tr>
                       <td></td>
                       <td colspan="2">รวม</td>
-                      <td class="text-end">60</td>
+                      <td class="text-end" id="data_list_amount">0</td>
                   </tr>
               </tfoot>
           </table>
@@ -100,146 +105,42 @@
                   <div>
                       <div class="mb-1">
                           <label class="text-secondary">เลือกเส้น <span class="text-danger">*</span></label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu-noodle-1">
-<!--                               @{
-                                  string[] noodles_name = { "เกาเหลา", "เล็ก", "หมี่", "บะหมี่", "บะหมี่ 2 ก้อน", "มันหนึบ" };
-                                  string[] noodles_price = { "+10", "+0", "+0", "+0", "+10", "+10" };
-                                  string[] noodles_image = {
-                      "https://f.ptcdn.info/487/028/000/1424059135-dsc01354-o.jpg",
-                      "https://www.simummuangmarket.com/uploads/image-1579659833771.jpg",
-                      "https://th-test-11.slatic.net/p/38f7e0d2567de71b6718d2fbe6adcbaa.jpg",
-                      "https://cf.shopee.co.th/file/e55a7117d5226ae9cbdb252c1838855f",
-                      "https://cf.shopee.co.th/file/e55a7117d5226ae9cbdb252c1838855f",
-                      "https://lzd-img-global.slatic.net/g/p/9a0038e0734375070bc55eb442a5097e.jpg_1200x1200q80.jpg_.webp"
-                  };
-                              }
-                              @for (int i = 0; i < noodles_name.Length; i++)
-                              {
-                                  <div class="col">
-                                      <div class="card py-1">
-                                          @*<div class="mb-1">
-                                              <img style="width: -webkit-fill-available; max-height: 90px;" src="@noodles_image[i]" />
-                                          </div>*@
-                                          <div>
-                                              <label class="fs-6">@noodles_name[i]</label>
-                                          </div>
-                                          <div>
-                                              <small class="text-secondary">@noodles_price[i]</small>
-                                          </div>
-                                      </div>
-                                  </div>
-                              } -->
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_1">
                           </div>
                       </div>
                       <div class="mb-1">
                           <label class="text-secondary">เลือกน้ำ <span class="text-danger">*</span></label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
-<!--                               @{
-                                  string[] main_name = { "น้ำตก", "น้ำใส", "แห้ง", "แห้งซอสเผ็ด", "หมาล่า", "ต้มยำ" };
-                                  string[] main_price = { "+50", "+50", "+50", "+60", "+60", "+50" };
-                                  string[] main_image = {
-                      "https://scontent.fbkk12-1.fna.fbcdn.net/v/t39.30808-6/271967212_4711558195627420_9208886525427818072_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c4c01c&_nc_eui2=AeEqBoAjVk9oiZj4eqmX462JtwwHocelPvC3DAehx6U-8IGUVH9mn695CNpumoBYDi4eYW_ZFENiTzeZwZPST_Gr&_nc_ohc=rdS1yyG-JS8AX8r-Wvj&_nc_ht=scontent.fbkk12-1.fna&oh=00_AfDbOivh13Z9ioiIocwpYSNHShYUM--v8PhS6Gj2Y9Bliw&oe=64A66BF2",
-                      "https://scontent.fbkk12-4.fna.fbcdn.net/v/t39.30808-6/272096596_4711560655627174_7639266343371083337_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c4c01c&_nc_eui2=AeEsIyI4ydjDler2XzBLnujaoWYYe1iXmJShZhh7WJeYlJZWpgO3q6dlJm661JNsQFEeeOIIrIgQCiFLxvcPaUtp&_nc_ohc=cuaXMCZMXkcAX9nhRTs&_nc_ht=scontent.fbkk12-4.fna&oh=00_AfAGo1sGRFH13km5bpk-87hwQ_CBuRbhHIxfn3Ec1wMSwQ&oe=64A6D4E5",
-                      "https://scontent.fbkk13-2.fna.fbcdn.net/v/t39.30808-6/272049722_4711562402293666_7170111448544436399_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=c4c01c&_nc_eui2=AeFn_-wvNrZM_di63b5B9HHlWXyZyHf6nEdZfJnId_qcRwl7i9TvQn3wzSHEh9CIhM_12N476bSfpK9FKzDvsCrz&_nc_ohc=udH8xF8SA4QAX-PjRlN&_nc_ht=scontent.fbkk13-2.fna&oh=00_AfD9lD_5V3zEGXfNExV_85ynyU3U9Hk0TSj7rQxNwScSMA&oe=64A76B2E",
-                      "https://scontent.fbkk12-4.fna.fbcdn.net/v/t39.30808-6/356355467_798558318311204_5345129138876313421_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeG9oB8htxCiYopvCXm-4g4pWUJRFPlIkDtZQlEU-UiQOz7fLGX_cjAAZnTkBUaZKo7bn2kGVxhVnlCUfMyzQjJ-&_nc_ohc=8_gZnvQIu3sAX9eaY1h&_nc_ht=scontent.fbkk12-4.fna&oh=00_AfCb84Uqu6eTb-FKGP2BKR1QYScKvxFoFvUuzhODQSR1Zg&oe=64A5BC9E",
-                      "https://scontent.fbkk12-3.fna.fbcdn.net/v/t39.30808-6/356387150_798556978311338_4310615648459655372_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFpC61DKPZleuqDzsQF9WbOggLLAKYO96aCAssApg73piPudD1rkSIvExnPyU5qWPx6nzu1kW5Uh63Hk-xzhlQy&_nc_ohc=wzgI5q30Ec0AX95SVrt&_nc_ht=scontent.fbkk12-3.fna&oh=00_AfCdWg44BHtgIfDptuMNWfCroyHcJ1GJE3MOLUAOUs295Q&oe=64A5BE6D",
-                      "https://scontent.fbkk12-3.fna.fbcdn.net/v/t39.30808-6/356387150_798556978311338_4310615648459655372_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFpC61DKPZleuqDzsQF9WbOggLLAKYO96aCAssApg73piPudD1rkSIvExnPyU5qWPx6nzu1kW5Uh63Hk-xzhlQy&_nc_ohc=wzgI5q30Ec0AX95SVrt&_nc_ht=scontent.fbkk12-3.fna&oh=00_AfCdWg44BHtgIfDptuMNWfCroyHcJ1GJE3MOLUAOUs295Q&oe=64A5BE6D"
-                  };
-                              }
-                              @for (int i = 0; i < main_name.Length; i++)
-                              {
-                                  <div class="col">
-                                      <div class="card py-1">
-                                          @*<div class="mb-1">
-                                              <img style="width: -webkit-fill-available; max-height: 90px;" src="@main_image[i]" />
-                                          </div>*@
-                                          <div>
-                                              <label class="fs-6">@main_name[i]</label>
-                                          </div>
-                                          <div>
-                                              <small class="text-secondary">@main_price[i]</small>
-                                          </div>
-                                      </div>
-                                  </div>
-                              } -->
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_2">
                           </div>
                       </div>
   
                       <div class="mb-1">
                           <label class="text-secondary">เลือกเนื้อ</label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
-<!--                               @{
-                                  string[] beef_name = { "เนื้อรวม", "เนื้อสด", "เนื้อเปื่อย", "สไบนาง", "ลูกชิ้นเนื้อ" };
-                                  string[] beef_price = { "+0", "+0", "+0", "+0", "+0" };
-                              }
-                              @for (int i = 0; i < beef_name.Length; i++)
-                              {
-                                  <div class="col">
-                                      <div class="card py-1">
-                                          <div>
-                                              <label class="fs-6">@beef_name[i]</label>
-                                          </div>
-                                          <div>
-                                              <small class="text-secondary">@beef_price[i]</small>
-                                          </div>
-                                      </div>
-                                  </div>
-                              } -->
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_3">
                           </div>
                       </div>
                       <div class="mb-1">
                           <label class="text-secondary">เลือกหมู</label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
-<!--                               @{
-                                  string[] pork_name = { "หมูรวม", "หมูสด", "หมูเปื่อย", "ลูกชิ้นหมู" };
-                                  string[] pork_price = { "+0", "+0", "+0", "+0" };
-                              }
-                              @for (int i = 0; i < pork_name.Length; i++)
-                              {
-                                  <div class="col">
-                                      <div class="card py-1">
-                                          <div>
-                                              <label class="fs-6">@pork_name[i]</label>
-                                          </div>
-                                          <div>
-                                              <small class="text-secondary">@pork_price[i]</small>
-                                          </div>
-                                      </div>
-                                  </div>
-                              } -->
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_4">
                           </div>
                       </div>
                       <div class="mb-1">
                           <label class="text-secondary">เลือกขนาด</label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
-<!--                               @{
-                                  string[] size_name = { "ธรรมดา", "พิเศษ" };
-                                  string[] size_price = { "+0", "+10" };
-                              }
-                              @for (int i = 0; i < size_name.Length; i++)
-                              {
-                                  <div class="col">
-                                      <div class="card py-1">
-                                          <div>
-                                              <label class="fs-6">@size_name[i]</label>
-                                          </div>
-                                          <div>
-                                              <small class="text-secondary">@size_price[i]</small>
-                                          </div>
-                                      </div>
-                                  </div>
-                              } -->
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_5">
                           </div>
                       </div>
                       <div class="mb-3">
                           <label class="text-secondary">จำนวน</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center">
                               <div class="col">
-  
-                                  <select class="form-select">
-                                      <option>1</option>
-                                      <option>2</option>
-                                      <option>3</option>
+                                  <select class="form-select" name="num">
+                                      <option selected value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
                                   </select>
                               </div>
                           </div>
@@ -249,13 +150,19 @@
                       <div class="alert alert-dark p-2" role="alert">
                           <div class="row justify-content-between">
                               <div class="col">
-                                  <label>เล็ก น้ำตก เนื้อรวม พิเศษ</label><br />
-                                  <label>จำนวน 1 รายการ</label><br />
-                                  <label>ราคา 60</label>
+                                - <label id="menu_noodle_1_name"></label><br />
+                                - <label id="menu_noodle_2_name"></label><br />
+                                - <label id="menu_noodle_3_name"></label>
+                                <label id="menu_noodle_4_name"></label><br />
+                                - <label id="menu_noodle_5_name"></label>
+                                <br/>
+                                  <!-- <label>เล็ก น้ำตก เนื้อรวม พิเศษ</label><br /> -->
+                                  <label>จำนวน <label id="num">1</label> รายการ</label><br />
+                                  <label>ราคา <label id="sum_amount">0</label></label>
                               </div>
                               <div class="col text-end">
-                                  <button class="btn btn-secondary btn-sm">เคลียร์</button>
-                                  <button class="btn btn-primary btn-sm">เพิ่ม</button>
+                                  <button class="btn btn-secondary btn-sm" onclick="clearData()">เคลียร์</button>
+                                  <button class="btn btn-primary btn-sm" onclick="addToList()">เพิ่ม</button>
 <!--                                   @*<button class="btn btn-primary btn-sm">อัพเดต</button>*@ -->
                               </div>
                           </div>
@@ -266,11 +173,11 @@
   
   
           <p>
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseSub" role="button" aria-expanded="false" aria-controls="collapseSub">
+              <a hidden class="btn btn-primary" data-bs-toggle="collapse" href="#collapseSub" role="button" aria-expanded="false" aria-controls="collapseSub">
                   อาหารเพิ่มเติม v
               </a>
           </p>
-          <div class="collapse show" id="collapseSub">
+          <div hidden class="collapse show" id="collapseSub">
               <div>
                   <div>
                       <div class="mb-1">
@@ -320,17 +227,54 @@
   </div>
 </div>
 <script>
+    let dataList = [];
   $(document).ready(function(){
     console.log('hi script')
     ajaxCallPageGet('/api/orders/menu-noodles').then((_data) => {
             if (_data.messageStatus === 'success') {
                 console.log('_data', _data);
-                let menu_noddle_1 = '';
-                for(let i in _data.menu_noodles){
-                    console.log(i);
+                let img = '';
+                let name = '';
+                let price = '';
+                let menu_noodle_1 = '';
+                let array_data_type = ['radio', 'radio', 'checkbox', 'checkbox', 'radio'];
+                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกเนื้อ', 'เลือกหมู', 'เลือกขนาด'];
+                let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_4', 'menu_noodle_5'];
+                let isChecked = '';
+                for(let a in array_data){
+                    let data_ = _data.menu_noodles.filter(s=>s.category_th === array_data[a]);
+                    menu_noodle_1 = '';
+                    for(let i in data_){
+                        let d = data_[i];
+                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        name = d.name_th;
+                        price = d.price;
+                        id = d.id;
+                        isChecked = '';
+                        if(name === 'ธรรมดา'){
+                            isChecked = 'checked';
+                        }
+                        menu_noodle_1 += `<div class="col">
+                                            <div class="form-check p-0 position-relative">
+                                                <label class="card py-1 mb-2 form-check-label" for="`+ id +`">
+                                                    <input `+ isChecked +` class="form-check-input" type="`+ array_data_type[a] +`" name="`+ array_data_id[a] +`" id="`+ id +`" value="`+ id +`" data-name="`+ name +`" data-price="`+ price +`" hidden>
+                                                    `+ img +`
+                                                    <div>
+                                                        <small class="fs-6">`+ name +`</small>
+                                                    </div>
+                                                    <div>
+                                                        <small class="text-secondary">+`+ price +`</small>
+                                                    </div>
+                                                    <img class="img__checked"src="./checked.png" width="30" />
+                                                </label>
+                                            </div>
+                                        </div>`;
+                    }
+
+                    $('#' + array_data_id[a]).empty();
+                    $('#' + array_data_id[a]).append(menu_noodle_1);
                 }
-                $('#menu-noodle-1').empty();
-                $('#menu-noodle-1').append(menu_noddle_1);
+
             } else {
                 // showToastsWarningBottomEndFade(_data.messageDescription)
             }
@@ -340,6 +284,133 @@
             // hideSpinnerBtn(getThis);
         });
   });
+
+  $(document).on('change', 'input[type=radio][name=menu_noodle_1]', function (event) {
+        getMenuSelected();
+  });
+
+  $(document).on('change', 'input[type=radio][name=menu_noodle_2]', function (event) {
+        getMenuSelected();
+  });
+  $(document).on('change', 'input[type=checkbox][name=menu_noodle_3]', function (event) {
+        getMenuSelected();
+  });
+  $(document).on('change', 'input[type=checkbox][name=menu_noodle_4]', function (event) {
+        getMenuSelected();
+  });
+  $(document).on('change', 'input[type=radio][name=menu_noodle_5]', function (event) {
+        getMenuSelected();
+  });
+  $(document).on('change', 'select[name=num]', function (event) {
+        getMenuSelected();
+  });
+
+  function getMenuSelected(){
+    let sum_amount = 0;
+    let menu_noodle_1_name = $('input[name="menu_noodle_1"]:checked').attr('data-name');
+    $('#menu_noodle_1_name').text(menu_noodle_1_name);
+    if(menu_noodle_1_name !== undefined){
+        sum_amount += parseInt($('input[name="menu_noodle_1"]:checked').attr('data-price'));
+    }
+
+    let menu_noodle_2_name = $('input[name="menu_noodle_2"]:checked').attr('data-name');
+    $('#menu_noodle_2_name').text(menu_noodle_2_name);
+    if(menu_noodle_2_name !== undefined){
+        sum_amount += parseInt($('input[name="menu_noodle_2"]:checked').attr('data-price'));
+    }
+
+    let n3 = '';
+    $('input[name="menu_noodle_3"]:checked').each(function(){
+        n3 += $(this).attr('data-name') + ' ';
+        sum_amount += parseInt($(this).attr('data-price'));
+    });
+    $('#menu_noodle_3_name').text(n3);
+
+    let n4 = '';
+    $('input[name="menu_noodle_4"]:checked').each(function(){
+        n4 += $(this).attr('data-name') + ' ';
+        sum_amount += parseInt($(this).attr('data-price'));
+    });
+    $('#menu_noodle_4_name').text(n4);
+
+    let menu_noodle_5_name = $('input[name="menu_noodle_5"]:checked').attr('data-name');
+    $('#menu_noodle_5_name').text(menu_noodle_5_name);
+    if(menu_noodle_5_name !== undefined){
+        sum_amount += parseInt($('input[name="menu_noodle_5"]:checked').attr('data-price'));
+    }
+
+    $('#num').text($('select[name="num"]').val());
+
+    sum_amount = sum_amount * parseInt($('select[name="num"]').val())
+
+    console.log('sum_amount', sum_amount)
+    $('#sum_amount').text(sum_amount);
+  }
+
+  function addToList(){
+    let menu_name = $('#menu_noodle_1_name').text() +' / '+ $('#menu_noodle_2_name').text();
+    let menu_name2 = $('#menu_noodle_3_name').text() +' '+ $('#menu_noodle_4_name').text();
+    let menu_name3 = $('#menu_noodle_5_name').text();
+    let menu_name4 = $('#num').text();
+    let menu_name5 = $('#sum_amount').text();
+    dataList.push(
+        {
+            id: dataList.length+1,
+            key1: menu_name,
+            key2: menu_name2,
+            key3: menu_name3,
+            num: menu_name4,
+            sum_amount: menu_name5
+        }
+    );
+    console.log('dataList', dataList)
+    setDataList()
+  }
+
+  function remove(getThis, id){
+    $(getThis).parent().remove();
+    dataList = dataList.filter(function( obj ) {
+        return obj.id !== id;
+    });
+    setDataList()
+  }
+
+  function setDataList(){
+    let sum_amount = 0;
+    let txt = '';
+    for(let i in dataList){
+        console.log(dataList[i])
+        txt += `<tr>
+                      <td class="pe-0" onclick="remove(this,`+dataList[i].id+`)"><button class="btn-close btn-sm p-0"></button></td>
+                      <td>`+dataList[i].key1+`<br/>`+dataList[i].key2+`<br/>`+dataList[i].key3+`</td>
+                      <td class="text-center">`+dataList[i].num+`</td>
+                      <td class="text-end">`+dataList[i].sum_amount+`</td>
+                  </tr>`;
+
+                  sum_amount += parseInt(dataList[i].sum_amount);
+    }
+    $('#data_list tbody').empty();
+    $('#data_list tbody').append(txt);
+
+    $('#data_list_amount').text(sum_amount);
+    
+  }
+
+  function clearData(){
+    console.log('clear')
+    $("input[type=radio]").each(function(){
+        $(this).prop('checked', false);
+    }); 
+    $("input[type=checkbox]").prop('checked', false); 
+    $('#menu_noodle_1_name').text('');
+    $('#menu_noodle_2_name').text('');
+    $('#menu_noodle_3_name').text('');
+    $('#menu_noodle_4_name').text('');
+    $('#menu_noodle_5_name').text('');
+    $('select[name="num"]').val(1)
+    $('#num').text('1');
+    $('#sum_amount').text('0');
+  }
 
   function ajaxCallPageGet(url) {
     return new Promise((resolve, reject) => {

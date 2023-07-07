@@ -1,0 +1,28 @@
+.img__checked {
+    display: none;
+}
+
+.card:has(input[type="radio"]:checked) {
+    border: 3px solid #b0ef8f;
+}
+
+.card:has(input[type="checkbox"]:checked) {
+    border: 3px solid #b0ef8f;
+}
+
+
+.card:has(input[type="radio"]:checked) .img__checked {
+    display: block;
+}
+.card:has(input[type="checkbox"]:checked) .img__checked {
+    display: block;
+}
+
+.img__checked {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
