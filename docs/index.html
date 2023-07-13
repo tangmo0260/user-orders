@@ -13,14 +13,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/docs/index.html">เมนู</a>
+        <a class="navbar-brand" href="/user-orders/orders">เมนู</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/docs/orders/index.html">สั่งอาหาร</a>
+                    <a class="nav-link text-dark" href="/user-orders/orders">สั่งอาหาร</a>
                 </li>
             </ul>
         </div>
@@ -91,8 +91,8 @@
                   </tfoot>
               </table>
               <div class="text-end">
-                  <button class="btn btn-lg btn-secondary">พิมพ์</button>
-                  <button class="btn btn-lg btn-success">ยืนยัน</button>
+                  <!-- <button class="btn btn-lg btn-secondary">พิมพ์</button> -->
+                  <button class="btn btn-lg btn-success" onclick="saveOrder()">ยืนยัน</button>
               </div>
           </div>
       </div>
@@ -105,30 +105,35 @@
           <div class="collapse show" id="collapseMain">
               <div>
                   <div>
-                      <div class="mb-1">
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกเส้น <span class="text-danger">*</span></label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_1">
                           </div>
                       </div>
-                      <div class="mb-1">
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกน้ำ <span class="text-danger">*</span></label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_2">
                           </div>
                       </div>
   
-                      <div class="mb-1">
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกเนื้อ</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_3">
                           </div>
                       </div>
-                      <div class="mb-1">
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกหมู</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_4">
                           </div>
                       </div>
-                      <div class="mb-1">
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกขนาด</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_5">
+                          </div>
+                      </div>
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
+                          <label class="text-secondary">เพิ่มเติม</label>
+                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_6">
                           </div>
                       </div>
                       <div class="mb-3">
@@ -149,14 +154,15 @@
                       </div>
                   </div>
                   <div>
-                      <div class="alert alert-dark p-2" style="font-size: 20px; font-weight: bold;" role="alert">
+                      <div class="alert bg-white p-3" style="font-size: 20px; font-weight: bold;" role="alert">
                           <div class="row justify-content-between">
                               <div class="col-12">
                                 - <label id="menu_noodle_1_name"></label><br />
                                 - <label id="menu_noodle_2_name"></label><br />
                                 - <label id="menu_noodle_3_name"></label>
                                 <label id="menu_noodle_4_name"></label><br />
-                                - <label id="menu_noodle_5_name"></label>
+                                - <label id="menu_noodle_5_name"></label><br />
+                                - <label id="menu_noodle_6_name"></label>
                                 <br/>
                                   <!-- <label>เล็ก น้ำตก เนื้อรวม พิเศษ</label><br /> -->
                                   <label>จำนวน <label id="num">1</label> รายการ</label><br />
@@ -204,9 +210,9 @@
                 let name = '';
                 let price = '';
                 let menu_noodle_1 = '';
-                let array_data_type = ['radio', 'radio', 'checkbox', 'checkbox', 'radio'];
-                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกเนื้อ', 'เลือกหมู', 'เลือกขนาด'];
-                let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_4', 'menu_noodle_5'];
+                let array_data_type = ['radio', 'radio', 'checkbox', 'checkbox', 'radio', 'checkbox'];
+                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกเนื้อ', 'เลือกหมู', 'เลือกขนาด', 'เพิ่มเติม'];
+                let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_4', 'menu_noodle_5', 'menu_noodle_6'];
                 let isChecked = '';
                 for(let a in array_data){
                     let data_ = _data.menu_noodles.filter(s=>s.category_th === array_data[a]);
@@ -227,7 +233,7 @@
                                                     <input `+ isChecked +` class="form-check-input" type="`+ array_data_type[a] +`" name="`+ array_data_id[a] +`" id="`+ id +`" value="`+ id +`" data-name="`+ name +`" data-price="`+ price +`" hidden>
                                                     `+ img +`
                                                     <div>
-                                                        <label class="card__name">`+ name +`</label>
+                                                        <span class="card__name">`+ name +`</span>
                                                     </div>
                                                     <div>
                                                         <small class="text-secondary">+`+ price +`</small>
@@ -268,6 +274,9 @@
   $(document).on('change', 'input[type=radio][name=menu_noodle_5]', function (event) {
         getMenuSelected();
   });
+  $(document).on('change', 'input[type=checkbox][name=menu_noodle_6]', function (event) {
+        getMenuSelected();
+  });
   $(document).on('change', 'select[name=num]', function (event) {
         getMenuSelected();
   });
@@ -306,6 +315,13 @@
         sum_amount += parseInt($('input[name="menu_noodle_5"]:checked').attr('data-price'));
     }
 
+    let n6 = '';
+    $('input[name="menu_noodle_6"]:checked').each(function(){
+        n6 += $(this).attr('data-name') + ' ';
+        sum_amount += parseInt($(this).attr('data-price'));
+    });
+    $('#menu_noodle_6_name').text(n6);
+
     $('#num').text($('select[name="num"]').val());
 
     sum_amount = sum_amount * parseInt($('select[name="num"]').val())
@@ -318,6 +334,7 @@
     let menu_name = $('#menu_noodle_1_name').text() +' / '+ $('#menu_noodle_2_name').text();
     let menu_name2 = $('#menu_noodle_3_name').text() +' '+ $('#menu_noodle_4_name').text();
     let menu_name3 = $('#menu_noodle_5_name').text();
+    let menu_name6 = $('#menu_noodle_6_name').text();
     let menu_name4 = $('#num').text();
     let menu_name5 = $('#sum_amount').text();
     dataList.push(
@@ -326,6 +343,7 @@
             key1: menu_name,
             key2: menu_name2,
             key3: menu_name3,
+            key4: menu_name6,
             num: menu_name4,
             sum_amount: menu_name5
         }
@@ -350,7 +368,7 @@
         console.log(dataList[i])
         txt += `<tr>
                       <td class="pe-0" onclick="remove(this,`+dataList[i].id+`)"><button class="btn-close btn-lg p-0"></button></td>
-                      <td>`+dataList[i].key1+`<br/>`+dataList[i].key2+`<br/>`+dataList[i].key3+`</td>
+                      <td>`+dataList[i].key1+`<br/>`+dataList[i].key2+`<br/>`+dataList[i].key3+`<br/>`+dataList[i].key4+`</td>
                       <td class="text-center">`+dataList[i].num+`</td>
                       <td class="text-end">`+dataList[i].sum_amount+`</td>
                   </tr>`;
@@ -375,6 +393,7 @@
     $('#menu_noodle_3_name').text('');
     $('#menu_noodle_4_name').text('');
     $('#menu_noodle_5_name').text('');
+    $('#menu_noodle_6_name').text('');
     $('select[name="num"]').val(1)
     $('#num').text('1');
     $('#sum_amount').text('0');
@@ -398,5 +417,9 @@
             },
         });
     });
+}
+
+function saveOrder(){
+    console.log('saveOrder', dataList)
 }
 </script>

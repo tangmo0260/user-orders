@@ -30,11 +30,18 @@ body {
 .card__menu_noodle_5 {
     background-color: #d7fffc;
 }
-
-.card__name {
-    font-size: 19px;
+.card__menu_noodle_6 {
+    /* background-color: #d7fffc; */
 }
 
+.card__name {
+    margin-top: 4px;
+    font-size: 19px;
+}
+.card__menu_noodle_6 .card__name {
+    margin-top: 4px;
+    font-size: 16px;
+}
 .card img {
     border-radius: 1.25rem;
 
@@ -56,6 +63,10 @@ body {
 }
 .card:has(input[type="checkbox"]:checked) .img__checked {
     display: block;
+}
+
+.card:not(img) {
+    padding-top: 4px;;
 }
 
 .img__checked {
