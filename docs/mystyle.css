@@ -1,5 +1,45 @@
+body {
+    background: #e5e5e5;
+}
+
 .img__checked {
     display: none;
+}
+
+.card__summary {
+    background-color: #fff;
+    border-style: dashed;
+}
+
+.card {
+    border-radius: 1.25rem;
+}
+
+.card__menu_noodle_1 {
+    background-color: #fff3d0;
+}
+.card__menu_noodle_2 {
+    background-color: #d7e9ff;
+}
+.card__menu_noodle_3 {
+    background-color: #ffd7e6;
+}
+.card__menu_noodle_4 {
+    background-color: #ffd7d7;
+}
+.card__menu_noodle_5 {
+    background-color: #d7fffc;
+}
+
+.card__name {
+    font-size: 19px;
+}
+
+.card img {
+    border-radius: 1.25rem;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .card:has(input[type="radio"]:checked) {
