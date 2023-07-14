@@ -29,7 +29,7 @@
 <div class="container-fluid">
   <div class="row">
       <div class="col-12 col-md-4 col-lg-4 border-end order-2 order-md-1">
-          <div class="card__summary p-3">
+          <div class="card__summary p-3 mb-5">
             <div>
                 <!-- <button onclick="window.print()">Print</button> -->
                   <h6>ใบรายการอาหาร</h6>
@@ -40,17 +40,20 @@
                                   <h6>โต๊ะ</h6>
                               </div>
                               <select class="form-select">
-                                <option selected value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
+                                <option selected value="A1">A1</option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="A4">A4</option>
+                                <option value="A5">A5</option>
+                                <option value="A6">A6</option>
+                                <option value="A7">A7</option>
+                                <option value="A8">A8</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                                <option value="B3">B3</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
                               </select>
                           </div>
                       </div>
@@ -97,12 +100,28 @@
           </div>
       </div>
       <div class="col-12 col-md-8 col-lg-8 order-1 order-md-2">
-          <p>
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseMain" role="button" aria-expanded="false" aria-controls="collapseMain">
-                  สั่งก๋วยเตี๋ยว
-              </a>
-          </p>
-          <div class="collapse show" id="collapseMain">
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="options">
+                    <input type="radio" class="btn-check" name="options" id="option_1" autocomplete="off" value="option1" checked>
+                    <label class="btn" for="option_1">สั่งก๋วยเตี๋ยว</label>
+                </div>
+                <div class="options">
+                    <input type="radio" class="btn-check" name="options" id="option_2" autocomplete="off" value="option2">
+                    <label class="btn" for="option_2">เมนูเพิ่มเติม</label>
+                </div>
+                <div class="options">
+                    <input type="radio" class="btn-check" name="options" id="option_3" autocomplete="off" value="option3">
+                    <label class="btn" for="option_3">เมนูเครื่องดื่ม</label>
+                </div>
+                <div class="options">
+                    <input type="radio" class="btn-check" name="options" id="option_4" autocomplete="off" value="option4">
+                    <label class="btn" for="option_4">ซาลาเปา/ติ่มซำ</label>
+                </div>
+
+            </div>
+        </div>
+          <div class="tab__option" id="option1">
               <div>
                   <div>
                       <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
@@ -179,23 +198,38 @@
               </div>
           </div>
   
-  
-          <p>
-              <a hidden class="btn btn-primary" data-bs-toggle="collapse" href="#collapseSub" role="button" aria-expanded="false" aria-controls="collapseSub">
-                  อาหารเพิ่มเติม v
-              </a>
-          </p>
-          <div hidden class="collapse show" id="collapseSub">
+          <div class="tab__option" id="option2" style="display: none;">
               <div>
                   <div>
-                      <div class="mb-1">
-                          <label class="text-secondary">น้ำ</label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-5 text-center">
-                          </div>
-                      </div>
+                    <div class="mb-1 py-3">
+                        <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_option2">
+                        </div>
+                    </div>
                   </div>
               </div>
           </div>
+
+          <div class="tab__option" id="option3" style="display: none;">
+            <div>
+                <div>
+                  <div class="mb-1 py-3">
+                      <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_option3">
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab__option" id="option4" style="display: none;">
+            <div>
+                <div>
+                  <div class="mb-1 py-3">
+                      <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_option4">
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
       </div>
   </div>
 </div>
@@ -211,9 +245,10 @@
                 let price = '';
                 let menu_noodle_1 = '';
                 let array_data_type = ['radio', 'radio', 'checkbox', 'checkbox', 'radio', 'checkbox'];
-                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกเนื้อ', 'เลือกหมู', 'เลือกขนาด', 'เพิ่มเติม'];
                 let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_4', 'menu_noodle_5', 'menu_noodle_6'];
                 let isChecked = '';
+
+                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกเนื้อ', 'เลือกหมู', 'เลือกขนาด', 'เพิ่มเติม'];
                 for(let a in array_data){
                     let data_ = _data.menu_noodles.filter(s=>s.category_th === array_data[a]);
                     menu_noodle_1 = '';
@@ -246,7 +281,44 @@
 
                     $('#' + array_data_id[a]).empty();
                     $('#' + array_data_id[a]).append(menu_noodle_1);
+
                 }
+                    //////
+                let array_data_id2 = ['menu_option2','menu_option3','menu_option4'];
+                let array_data2 = ['เมนูเพิ่มเติม', 'เมนูเครื่องดื่ม', 'ซาลาเปา/ติ่มซำ'];
+                for(let a in array_data2){
+                    let data_ = _data.menu_noodles.filter(s=>s.category_th === array_data2[a]);
+                    menu_noodle_1 = '';
+                    for(let i in data_){
+                        let d = data_[i];
+                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        name = d.name_th;
+                        price = d.price;
+                        id = d.id;
+                        isChecked = '';
+                        if(name === 'ธรรมดา'){
+                            isChecked = 'checked';
+                        }
+                        menu_noodle_1 += `<div class="col">
+                                            <div class="form-check p-0 position-relative">
+                                                <div class="card mb-2 form-check-label" for="`+ id +`" onclick="addMenu(`+ id +`, '`+ name +`', '`+ price +`')">
+                                                    <input class="" type="button" hidden>
+                                                    `+ img +`
+                                                    <div>
+                                                        <span class="card__name">`+ name +`</span>
+                                                    </div>
+                                                    <div>
+                                                        <small class="text-secondary">+`+ price +`</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                    }
+
+                    $('#' + array_data_id2[a]).empty();
+                    $('#' + array_data_id2[a]).append(menu_noodle_1);
+                }
+            
 
             } else {
                 // showToastsWarningBottomEndFade(_data.messageDescription)
@@ -256,6 +328,11 @@
         }).finally(function () {
             // hideSpinnerBtn(getThis);
         });
+  });
+
+
+  $(document).on('change', 'input[type=radio][name=options]', function (event) {
+        changeTabMenu();
   });
 
   $(document).on('change', 'input[type=radio][name=menu_noodle_1]', function (event) {
@@ -331,26 +408,49 @@
   }
 
   function addToList(){
-    let menu_name = $('#menu_noodle_1_name').text() +' / '+ $('#menu_noodle_2_name').text();
-    let menu_name2 = $('#menu_noodle_3_name').text() +' '+ $('#menu_noodle_4_name').text();
-    let menu_name3 = $('#menu_noodle_5_name').text();
-    let menu_name6 = $('#menu_noodle_6_name').text();
-    let menu_name4 = $('#num').text();
-    let menu_name5 = $('#sum_amount').text();
+    let key1 = $('#menu_noodle_1_name').text();
+    let key2 = $('#menu_noodle_2_name').text();
+    let key3 = $('#menu_noodle_3_name').text() +' '+ $('#menu_noodle_4_name').text();
+    let key4 = $('#menu_noodle_5_name').text();
+    let key5 = $('#menu_noodle_6_name').text();
+    let key_num = $('#num').text();
+    let key_sum_amount = $('#sum_amount').text();
     dataList.push(
         {
             id: dataList.length+1,
-            key1: menu_name,
-            key2: menu_name2,
-            key3: menu_name3,
-            key4: menu_name6,
-            num: menu_name4,
-            sum_amount: menu_name5
+            key1: key1,
+            key2: key2,
+            key3: key3,
+            key4: key4,
+            key5: key5,
+            key_num: key_num,
+            key_sum_amount: key_sum_amount
         }
     );
     console.log('dataList', dataList)
     setDataList();
     clearData();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+  }
+
+  function addMenu(id, name, price){
+    console.log('addMenu')
+    dataList.push(
+        {
+            id: (dataList.length+1) + 20,
+            key1: name,
+            key2: '',
+            key3: '',
+            key4: '',
+            key5: '',
+            key_num: 1,
+            key_sum_amount: price
+        }
+    );
+    console.log('dataList', dataList)
+    setDataList();
+    clearData();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
   }
 
   function remove(getThis, id){
@@ -362,23 +462,35 @@
   }
 
   function setDataList(){
-    let sum_amount = 0;
+    let key_sum_amount = 0;
     let txt = '';
     for(let i in dataList){
         console.log(dataList[i])
+
+                  key_sum_amount += parseInt(dataList[i].key_sum_amount);
+
+        if(dataList[i].key2 === ''){
+            txt += `<tr>
+                      <td class="pe-0" onclick="remove(this,`+dataList[i].id+`)"><button class="btn-close btn-lg p-0"></button></td>
+                      <td>`+dataList[i].key1+`</td>
+                      <td class="text-center">`+dataList[i].key_num+`</td>
+                      <td class="text-end">`+dataList[i].key_sum_amount+`</td>
+                  </tr>`;
+        }else{
+
         txt += `<tr>
                       <td class="pe-0" onclick="remove(this,`+dataList[i].id+`)"><button class="btn-close btn-lg p-0"></button></td>
-                      <td>`+dataList[i].key1+`<br/>`+dataList[i].key2+`<br/>`+dataList[i].key3+`<br/>`+dataList[i].key4+`</td>
-                      <td class="text-center">`+dataList[i].num+`</td>
-                      <td class="text-end">`+dataList[i].sum_amount+`</td>
+                      <td>`+dataList[i].key1+` / `+ dataList[i].key2 +`<br/>`+dataList[i].key3+`<br/>`+dataList[i].key4+`<br/>`+dataList[i].key5+`</td>
+                      <td class="text-center">`+dataList[i].key_num+`</td>
+                      <td class="text-end">`+dataList[i].key_sum_amount+`</td>
                   </tr>`;
-
-                  sum_amount += parseInt(dataList[i].sum_amount);
+        }
     }
     $('#data_list tbody').empty();
     $('#data_list tbody').append(txt);
 
-    $('#data_list_amount').text(sum_amount);
+    $('#data_list_amount').text(key_sum_amount);
+
     
   }
 
@@ -421,5 +533,14 @@
 
 function saveOrder(){
     console.log('saveOrder', dataList)
+}
+
+function changeTabMenu(){
+    console.log('changeTabMenu', $('input[name="options"]:checked').val())
+    $('.tab__option').each(function(){
+        $(this).hide();
+    });
+
+    $('#'+$('input[name="options"]:checked').val()).show();
 }
 </script>

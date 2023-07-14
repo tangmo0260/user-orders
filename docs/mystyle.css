@@ -36,7 +36,7 @@ body {
 
 .card__name {
     margin-top: 4px;
-    font-size: 19px;
+    font-size: 18px;
 }
 .card__menu_noodle_6 .card__name {
     margin-top: 4px;
@@ -76,4 +76,16 @@ body {
     left: 0;
     right: 0;
     margin: auto;
+}
+
+.options {
+    margin-right: 8px;
+}
+
+.options:has(input[name="options"]) label {
+    background-color: #ccc;
+}
+
+.options:has(input[name="options"]:checked) label {
+    background-color: #b0ef8f;
 }
