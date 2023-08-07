@@ -33,29 +33,14 @@
     </div>
 </nav>
 <div class="container-fluid">
-  <div class="row" style="    overflow-y: auto;">
+  <div class="row">
+    <div class="col-12">
+        <h5>สรุปยอด: <span id="summary_price"></span></h5>
+    </div>
+  </div>
+  <div class="row" style="overflow-y: auto;">
       <div id="order-list" class="col-12 order-list" style="display: -webkit-box;">
         <div class="me-3" style="width: 300px; height: 200px;">
-            <div class="card" style="height: 200px;">
-               
-            </div>
-        </div>
-        <div class="" style="width: 300px; height: 200px;">
-            <div class="card" style="height: 200px;">
-               
-            </div>
-        </div>
-        <div class="" style="width: 300px; height: 200px;">
-            <div class="card" style="height: 200px;">
-               
-            </div>
-        </div>
-        <div class="" style="width: 300px; height: 200px;">
-            <div class="card" style="height: 200px;">
-               
-            </div>
-        </div>
-        <div class="" style="width: 300px; height: 200px;">
             <div class="card" style="height: 200px;">
                
             </div>
@@ -95,8 +80,10 @@ function getOrderInprogress(){
     ajaxCallPagePost('/api/orders/get', data).then((_data) => {
             if (_data.messageStatus === 'success') {
                 console.log(_data)
+                let summary_price = 0;
                 let txt = '';
                 _data.orders.forEach(element => {
+                    summary_price += element.total_price;
                     let dt = JSON.parse(element.order_json);
                     console.log(dt)
                     txt += `<div class="me-3" style="width: 300px;"><div class="card p-3" style="">`;
@@ -161,6 +148,7 @@ function getOrderInprogress(){
 
                 $('#order-list').empty();
                 $('#order-list').append(txt);
+                $('#summary_price').text(summary_price);
             } else {
                 alert(_data.messageDescription);
                 // showToastsWarningBottomEndFade(_data.messageDescription)
