@@ -149,6 +149,11 @@ function getOrderInprogress(){
                 $('#order-list').empty();
                 $('#order-list').append(txt);
                 $('#summary_price').text(summary_price);
+
+                if(_data.orders.length === 0){
+                    $('#order-list').append('ยังไม่มีรายการ');
+                $('#summary_price').text('0');
+                }
             } else {
                 alert(_data.messageDescription);
                 // showToastsWarningBottomEndFade(_data.messageDescription)

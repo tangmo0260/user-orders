@@ -161,6 +161,9 @@ function getOrderInprogress(){
 
                 $('#order-list').empty();
                 $('#order-list').append(txt);
+                if(_data.orders.length === 0){
+                    $('#order-list').append('ยังไม่มีรายการ');
+                }
             } else {
                 alert(_data.messageDescription);
                 // showToastsWarningBottomEndFade(_data.messageDescription)
