@@ -39,38 +39,40 @@
                               <div class="pt-2 me-2">
                                   <h6>โต๊ะ</h6>
                               </div>
-                              <select class="form-select">
-                                <option selected value="A1">A1</option>
+                              <select class="form-select" id="table_no">
+                                <option  value="">เลือก</option>
+                                <option value="take_away">ใส่ถุง</option>
+                                <option value="grab">Grab</option>
+                                <option value="line_man">Line Man</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="A1">A1</option>
                                 <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="A4">A4</option>
-                                <option value="A5">A5</option>
-                                <option value="A6">A6</option>
-                                <option value="A7">A7</option>
-                                <option value="A8">A8</option>
                                 <option value="B1">B1</option>
                                 <option value="B2">B2</option>
-                                <option value="B3">B3</option>
-                                <option value="C1">C1</option>
-                                <option value="C2">C2</option>
-                                <option value="C3">C3</option>
                               </select>
                           </div>
                       </div>
-                      <div class="col-6">
+                      <!-- <div class="col-6">
                           <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                              <input class="form-check-input" type="radio" name="order_type" id="flexRadioDefault1" value="at_store" checked>
                               <label class="form-check-label" for="flexRadioDefault1">
                                   ทานที่ร้าน
                               </label>
                           </div>
                           <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                              <input class="form-check-input" type="radio" name="order_type" id="flexRadioDefault2" value="take_away">
                               <label class="form-check-label" for="flexRadioDefault2">
                                   ห่อใส่ถุง
                               </label>
                           </div>
-                      </div>
+                      </div> -->
                   </div>
               </div>
               <table class="table" id="data_list">
@@ -93,9 +95,11 @@
                       </tr>
                   </tfoot>
               </table>
-              <div class="text-end">
+              <textarea id="note" class="form-control"></textarea>
+              <div class="text-end mt-3">
                   <!-- <button class="btn btn-lg btn-secondary">พิมพ์</button> -->
-                  <button class="btn btn-lg btn-success" onclick="saveOrder()">ยืนยัน</button>
+                  <button class="btn btn-lg btn-success" onclick="clearOrder()">Clear</button>
+                  <button class="btn btn-lg btn-success" onclick="saveOrder()">ส่ง Order</button>
               </div>
           </div>
       </div>
@@ -124,17 +128,17 @@
           <div class="tab__option" id="option1">
               <div>
                   <div>
+                    <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
+                        <label class="text-secondary">เลือกน้ำ <span class="text-danger">*</span></label>
+                        <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_2">
+                        </div>
+                    </div>
+
                       <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกเส้น <span class="text-danger">*</span></label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_1">
                           </div>
                       </div>
-                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
-                          <label class="text-secondary">เลือกน้ำ <span class="text-danger">*</span></label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_2">
-                          </div>
-                      </div>
-  
                       <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกเนื้อ</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_3">
@@ -224,7 +228,7 @@
             <div>
                 <div>
                   <div class="mb-1 py-3">
-                      <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_option4">
+                      <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-2 text-center" id="menu_option4">
                       </div>
                   </div>
                 </div>
@@ -254,7 +258,7 @@
                     menu_noodle_1 = '';
                     for(let i in data_){
                         let d = data_[i];
-                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        // img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
                         price = d.price;
                         id = d.id;
@@ -270,7 +274,7 @@
                                                     <div>
                                                         <span class="card__name">`+ name +`</span>
                                                     </div>
-                                                    <div>
+                                                    <div hidden>
                                                         <small class="text-secondary">+`+ price +`</small>
                                                     </div>
                                                     <img class="img__checked"src="./checked.png" width="30" />
@@ -291,7 +295,7 @@
                     menu_noodle_1 = '';
                     for(let i in data_){
                         let d = data_[i];
-                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        // img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
                         price = d.price;
                         id = d.id;
@@ -307,7 +311,7 @@
                                                     <div>
                                                         <span class="card__name">`+ name +`</span>
                                                     </div>
-                                                    <div>
+                                                    <div hidden>
                                                         <small class="text-secondary">+`+ price +`</small>
                                                     </div>
                                                 </div>
@@ -408,6 +412,7 @@
   }
 
   function addToList(){
+    console.log('==addToList==')
     let key1 = $('#menu_noodle_1_name').text();
     let key2 = $('#menu_noodle_2_name').text();
     let key3 = $('#menu_noodle_3_name').text() +' '+ $('#menu_noodle_4_name').text();
@@ -415,9 +420,10 @@
     let key5 = $('#menu_noodle_6_name').text();
     let key_num = $('#num').text();
     let key_sum_amount = $('#sum_amount').text();
+
     dataList.push(
         {
-            id: dataList.length+1,
+            seq: dataList.length+1,
             key1: key1,
             key2: key2,
             key3: key3,
@@ -425,8 +431,8 @@
             key5: key5,
             key_num: key_num,
             key_sum_amount: key_sum_amount
-        }
-    );
+        });
+
     console.log('dataList', dataList)
     setDataList();
     clearData();
@@ -434,19 +440,34 @@
   }
 
   function addMenu(id, name, price){
-    console.log('addMenu')
-    dataList.push(
-        {
-            id: (dataList.length+1) + 20,
-            key1: name,
-            key2: '',
-            key3: '',
-            key4: '',
-            key5: '',
-            key_num: 1,
-            key_sum_amount: price
-        }
-    );
+    console.log('==addMenu==')
+    let checkdup = dataList.filter(s=>s.key1 === name).length;
+    if(checkdup > 0){
+        let n = [];
+        dataList.forEach(element => {
+            let nd = element;
+            if(nd.key1 === name){
+                nd.key_num = element.key_num + 1;
+                n.push(nd);
+            }else{
+                n.push(element);
+            }
+        });
+        dataList = n;
+    }else{
+        dataList.push(
+            {
+                seq: (dataList.length+1) + 20,
+                key1: name,
+                key2: '',
+                key3: '',
+                key4: '',
+                key5: '',
+                key_num: 1,
+                key_sum_amount: price
+            }
+        );
+    }
     console.log('dataList', dataList)
     setDataList();
     clearData();
@@ -454,10 +475,11 @@
   }
 
   function remove(getThis, id){
+    console.log('remove getThis', getThis)
+    console.log('remove id', id)
     $(getThis).parent().remove();
-    dataList = dataList.filter(function( obj ) {
-        return obj.id !== id;
-    });
+    dataList = dataList.filter(s=>s.seq !== id);
+    console.log('rm dataList', dataList)
     setDataList()
   }
 
@@ -467,11 +489,11 @@
     for(let i in dataList){
         console.log(dataList[i])
 
-                  key_sum_amount += parseInt(dataList[i].key_sum_amount);
+                  key_sum_amount += parseInt(dataList[i].key_sum_amount * dataList[i].key_num);
 
         if(dataList[i].key2 === ''){
             txt += `<tr>
-                      <td class="pe-0" onclick="remove(this,`+dataList[i].id+`)"><button class="btn-close btn-lg p-0"></button></td>
+                      <td class="pe-0" onclick="remove(this,`+dataList[i].seq+`)"><button class="btn-close btn-lg p-0"></button></td>
                       <td>`+dataList[i].key1+`</td>
                       <td class="text-center">`+dataList[i].key_num+`</td>
                       <td class="text-end">`+dataList[i].key_sum_amount+`</td>
@@ -479,7 +501,7 @@
         }else{
 
         txt += `<tr>
-                      <td class="pe-0" onclick="remove(this,`+dataList[i].id+`)"><button class="btn-close btn-lg p-0"></button></td>
+                      <td class="pe-0" onclick="remove(this,`+dataList[i].seq+`)"><button class="btn-close btn-lg p-0"></button></td>
                       <td>`+dataList[i].key1+` / `+ dataList[i].key2 +`<br/>`+dataList[i].key3+`<br/>`+dataList[i].key4+`<br/>`+dataList[i].key5+`</td>
                       <td class="text-center">`+dataList[i].key_num+`</td>
                       <td class="text-end">`+dataList[i].key_sum_amount+`</td>
@@ -531,8 +553,47 @@
     });
 }
 
+
+function ajaxCallPagePost(url, data) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: 'https://api-prod.letjoys.com' + url,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            resolve(data);
+        });
+    });
+}
+
 function saveOrder(){
     console.log('saveOrder', dataList)
+    let data = {
+        id: 0,
+        table_number: $('#table_no').val(),
+        // order_type: $('input[type=radio][name=order_type]').val(),
+        order_json: JSON.stringify(dataList),
+        total_price: parseInt($('#data_list_amount').text()),
+        order_status: 'I',//pending, successful
+        paid_status: 'N',//pending, successful
+        note: $('#note').text()
+    }
+    console.log('data', data)
+    ajaxCallPagePost('/api/orders/update', data).then((_data) => {
+            if (_data.messageStatus === 'success') {
+                alert('success');
+                clearOrder();
+            } else {
+                alert(_data.messageDescription);
+                // showToastsWarningBottomEndFade(_data.messageDescription)
+            }
+        }).catch((error) => {
+            console.log(error)
+        }).finally(function () {
+            // hideSpinnerBtn(getThis);
+        });
 }
 
 function changeTabMenu(){
@@ -543,4 +604,14 @@ function changeTabMenu(){
 
     $('#'+$('input[name="options"]:checked').val()).show();
 }
+
+function clearOrder(){
+    console.log('clearOrder')
+    dataList = [];
+    $('#data_list tbody').empty();
+    $('#table_no').val('');
+
+    $('#data_list_amount').text('0');
+}
+
 </script>
