@@ -86,7 +86,7 @@ function getOrderInprogress(){
     console.log('getOrderInprogress')
     let data = {
         id: 0,
-        action: 'in order'
+        action: ''
     }
     console.log('data', data)
     ajaxCallPagePost('/api/orders/get', data).then((_data) => {
