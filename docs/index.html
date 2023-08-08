@@ -146,15 +146,15 @@
                           </div>
                       </div>
                       <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
-                          <label class="text-secondary">เลือกเนื้อ</label>
+                          <label class="text-secondary">เลือก</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_3">
                           </div>
                       </div>
-                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
+                      <!-- <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกหมู</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_4">
                           </div>
-                      </div>
+                      </div> -->
                       <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกขนาด</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_5">
@@ -253,12 +253,14 @@
                 let img = '';
                 let name = '';
                 let price = '';
+                let price2 = '';
                 let menu_noodle_1 = '';
-                let array_data_type = ['radio', 'radio', 'checkbox', 'checkbox', 'radio', 'checkbox'];
-                let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_4', 'menu_noodle_5', 'menu_noodle_6'];
+                let array_data_type = ['radio', 'radio', 'radio', 'checkbox', 'radio', 'checkbox'];
+                let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_5', 'menu_noodle_6'];
                 let isChecked = '';
 
-                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกเนื้อ', 'เลือกหมู', 'เลือกขนาด', 'เพิ่มเติม'];
+                // let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกก๋วยเตี๋ยว', 'เลือกหมู', 'เลือกขนาด', 'เพิ่มเติม'];
+                let array_data = ['เลือกเส้น', 'เลือกน้ำ', 'เลือกก๋วยเตี๋ยว', 'เลือกขนาด', 'เพิ่มเติม'];
                 for(let a in array_data){
                     let data_ = _data.menu_noodles.filter(s=>s.category_th === array_data[a]);
                     menu_noodle_1 = '';
@@ -266,7 +268,8 @@
                         let d = data_[i];
                         img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
-                        price = d.price;
+                        price = d.price === 0 ? '' : '+' + d.price;
+                        price2 = d.price;
                         id = d.id;
                         isChecked = '';
                         if(name === 'ธรรมดา'){
@@ -275,13 +278,13 @@
                         menu_noodle_1 += `<div class="col">
                                             <div class="form-check p-0 position-relative">
                                                 <label class="p-0 card mb-2 form-check-label card__`+ array_data_id[a] +`" for="`+ id +`">
-                                                    <input `+ isChecked +` class="form-check-input" type="`+ array_data_type[a] +`" name="`+ array_data_id[a] +`" id="`+ id +`" value="`+ id +`" data-name="`+ name +`" data-price="`+ price +`" hidden>
+                                                    <input `+ isChecked +` class="form-check-input" type="`+ array_data_type[a] +`" name="`+ array_data_id[a] +`" id="`+ id +`" value="`+ id +`" data-name="`+ name +`" data-price="`+ price2 +`" hidden>
                                                     `+ img +`
                                                     <div>
                                                         <span class="card__name">`+ name +`</span>
                                                     </div>
                                                     <div>
-                                                        <small class="text-secondary">+`+ price +`</small>
+                                                        <small class="text-secondary">`+ price +`</small>
                                                     </div>
                                                     <img class="img__checked"src="./checked.png" width="30" />
                                                 </label>
