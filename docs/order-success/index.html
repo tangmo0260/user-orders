@@ -70,6 +70,7 @@ function getOrderInprogress(){
     console.log('getOrderInprogress')
     let data = {
         id: 0,
+        order_date: '2023-08-08',
         action: ''
     }
     console.log('data', data)
@@ -83,6 +84,7 @@ function getOrderInprogress(){
                     let dt = JSON.parse(element.order_json);
                     console.log(dt)
                     txt += `<div class="me-3" style="width: 300px;"><div class="card p-3" style="">`;
+                    txt += `<div class="text-end"><a class="" href="/user-orders?id=`+element.id+`">แก้ไข</a></div>`
                     txt += `<p>เวลา: `+(element.created_at)+`</p>`;
                     txt += `<p>โต๊ะ: `+(element.table_number === '' ? '-' : element.table_number)+`</p>`;
                         txt += `<table class="table" id="data_list_`+element.seq+`">
