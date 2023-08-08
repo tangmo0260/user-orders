@@ -370,6 +370,7 @@
                     idEdit = id;
                     let dt = JSON.parse(_data.orders[0].order_json);
                     dataList = dt;
+                    $('#table_no').val(_data.orders[0].table_number)
                     setDataList();
                 }
             } else {
