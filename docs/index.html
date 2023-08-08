@@ -674,7 +674,7 @@ function updateOrder(id){
     ajaxCallPagePost('/api/orders/update', data).then((_data) => {
             if (_data.messageStatus === 'success') {
                 alert('success');
-                clearOrder();
+                window.location.href = '/user-orders';
             } else {
                 alert(_data.messageDescription);
                 // showToastsWarningBottomEndFade(_data.messageDescription)
