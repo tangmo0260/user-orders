@@ -264,7 +264,7 @@
                     menu_noodle_1 = '';
                     for(let i in data_){
                         let d = data_[i];
-                        // img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
                         price = d.price;
                         id = d.id;
@@ -274,13 +274,13 @@
                         }
                         menu_noodle_1 += `<div class="col">
                                             <div class="form-check p-0 position-relative">
-                                                <label class="card mb-2 form-check-label card__`+ array_data_id[a] +`" for="`+ id +`">
+                                                <label class="p-0 card mb-2 form-check-label card__`+ array_data_id[a] +`" for="`+ id +`">
                                                     <input `+ isChecked +` class="form-check-input" type="`+ array_data_type[a] +`" name="`+ array_data_id[a] +`" id="`+ id +`" value="`+ id +`" data-name="`+ name +`" data-price="`+ price +`" hidden>
                                                     `+ img +`
                                                     <div>
                                                         <span class="card__name">`+ name +`</span>
                                                     </div>
-                                                    <div hidden>
+                                                    <div>
                                                         <small class="text-secondary">+`+ price +`</small>
                                                     </div>
                                                     <img class="img__checked"src="./checked.png" width="30" />
