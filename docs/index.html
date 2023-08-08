@@ -35,10 +35,8 @@
 <div class="container-fluid">
   <div class="row">
       <div class="col-12 col-md-4 col-lg-4 border-end order-2 order-md-1">
-          <div style="position: relative;
-          width: inherit;">
-            <div class="card__summary p-3 mb-5" style="position: fixed;
-          width: inherit;">
+          <div>
+            <div class="card__summary p-3 mb-5">
             <div>
                 <!-- <button onclick="window.print()">Print</button> -->
                   <h6>ใบรายการอาหาร</h6>
@@ -113,7 +111,7 @@
           </div>
           </div>
       </div>
-      <div class="col-12 col-md-8 col-lg-8 order-1 order-md-2 ps-4">
+      <div class="col-12 col-md-8 col-lg-8 order-1 order-md-2 ps-4" style="height: 90vh; overflow: auto;">
         <div class="row">
             <div class="col-12 d-flex">
                 <div class="options">
@@ -250,8 +248,18 @@
 </div>
 <script>
     let dataList = [];
+    let idEdit = 0;
   $(document).ready(function(){
     console.log('hi script')
+    let searchParams = new URLSearchParams(window.location.search);
+    console.log('searchParams',searchParams)
+    // console.log('id', searchParams.has('id'))
+    if(searchParams.has('id')){
+        let id = searchParams.get('id');
+        console.log('id', id)
+        getOrder(id);
+
+    }
     ajaxCallPageGet('/api/orders/menu-noodles').then((_data) => {
             if (_data.messageStatus === 'success') {
                 console.log('_data', _data);
@@ -319,7 +327,7 @@
                         }
                         menu_noodle_1 += `<div class="col">
                                             <div class="form-check p-0 position-relative">
-                                                <div class="card mb-2 form-check-label" for="`+ id +`" onclick="addMenu(`+ id +`, '`+ name +`', '`+ price +`')">
+                                                <div class="card mb-2 form-check-label" for="`+ id +`" onclick="addMenu(`+ id +`, '`+ name +`', '`+ price +`', '`+array_data2[a]+`')">
                                                     <input class="" type="button" hidden>
                                                     `+ img +`
                                                     <div>
@@ -347,6 +355,33 @@
             // hideSpinnerBtn(getThis);
         });
   });
+
+  function getOrder(id){
+    console.log('getOrderInprogress')
+    let data = {
+        id: id,
+        order_date: '',
+        action: ''
+    }
+    console.log('data', data)
+    ajaxCallPagePost('/api/orders/get', data).then((_data) => {
+            if (_data.messageStatus === 'success') {
+                if(_data.orders.length > 0){
+                    idEdit = id;
+                    let dt = JSON.parse(_data.orders[0].order_json);
+                    dataList = dt;
+                    setDataList();
+                }
+            } else {
+                alert(_data.messageDescription);
+                // showToastsWarningBottomEndFade(_data.messageDescription)
+            }
+        }).catch((error) => {
+            console.log(error)
+        }).finally(function () {
+            // hideSpinnerBtn(getThis);
+        });
+}
 
 
   $(document).on('change', 'input[type=radio][name=options]', function (event) {
@@ -427,6 +462,7 @@
 
   function addToList(){
     console.log('==addToList==')
+    let category = 'ก๋วยเตี๋ยว';
     let key1 = $('#menu_noodle_1_name').text();
     let key2 = $('#menu_noodle_2_name').text();
     let key3 = $('#menu_noodle_3_name').text() +' '+ $('#menu_noodle_4_name').text();
@@ -438,6 +474,7 @@
     dataList.push(
         {
             seq: dataList.length+1,
+            category: category,
             key1: key1,
             key2: key2,
             key3: key3,
@@ -453,7 +490,7 @@
     $("html, body").animate({ scrollTop: 0 }, "fast");
   }
 
-  function addMenu(id, name, price){
+  function addMenu(id, name, price, category){
     console.log('==addMenu==')
     let checkdup = dataList.filter(s=>s.key1 === name).length;
     if(checkdup > 0){
@@ -472,6 +509,7 @@
         dataList.push(
             {
                 seq: (dataList.length+1) + 20,
+                category: category,
                 key1: name,
                 key2: '',
                 key3: '',
@@ -498,6 +536,7 @@
   }
 
   function setDataList(){
+    console.log('setDataList', dataList)
     let key_sum_amount = 0;
     let txt = '';
     for(let i in dataList){
