@@ -319,7 +319,7 @@
                     menu_noodle_1 = '';
                     for(let i in data_){
                         let d = data_[i];
-                        // img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
                         price = d.price;
                         id = d.id;
@@ -335,7 +335,7 @@
                                                     <div>
                                                         <span class="card__name">`+ name +`</span>
                                                     </div>
-                                                    <div hidden>
+                                                    <div>
                                                         <small class="text-secondary">+`+ price +`</small>
                                                     </div>
                                                 </div>
@@ -673,8 +673,8 @@ function updateOrder(id){
     console.log('data', data)
     ajaxCallPagePost('/api/orders/update', data).then((_data) => {
             if (_data.messageStatus === 'success') {
-                alert('success');
-                window.location.href = '/user-orders';
+                // alert('success');
+                window.location.href = '/user-orders/orders';
             } else {
                 alert(_data.messageDescription);
                 // showToastsWarningBottomEndFade(_data.messageDescription)
