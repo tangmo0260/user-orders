@@ -35,7 +35,10 @@
 <div class="container-fluid">
   <div class="row">
       <div class="col-12 col-md-4 col-lg-4 border-end order-2 order-md-1">
-          <div class="card__summary p-3 mb-5">
+          <div style="position: relative;
+          width: inherit;">
+            <div class="card__summary p-3 mb-5" style="position: fixed;
+          width: inherit;">
             <div>
                 <!-- <button onclick="window.print()">Print</button> -->
                   <h6>ใบรายการอาหาร</h6>
@@ -108,8 +111,9 @@
                   <button class="btn btn-lg btn-success" onclick="saveOrder()">ส่ง Order</button>
               </div>
           </div>
+          </div>
       </div>
-      <div class="col-12 col-md-8 col-lg-8 order-1 order-md-2">
+      <div class="col-12 col-md-8 col-lg-8 order-1 order-md-2 ps-4">
         <div class="row">
             <div class="col-12 d-flex">
                 <div class="options">
@@ -141,15 +145,16 @@
                     </div>
 
                       <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
-                          <label class="text-secondary">เลือกเส้น <span class="text-danger">*</span></label>
-                          <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_1">
-                          </div>
-                      </div>
-                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือก</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_3">
                           </div>
                       </div>
+
+                      <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
+                        <label class="text-secondary">เลือกเส้น <span class="text-danger">*</span></label>
+                        <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_1">
+                        </div>
+                    </div>
                       <!-- <div class="mb-1 py-3" style="border-bottom: 3px solid #000;">
                           <label class="text-secondary">เลือกหมู</label>
                           <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 text-center" id="menu_noodle_4">
@@ -255,7 +260,7 @@
                 let price = '';
                 let price2 = '';
                 let menu_noodle_1 = '';
-                let array_data_type = ['radio', 'radio', 'radio', 'checkbox', 'radio', 'checkbox'];
+                let array_data_type = ['radio', 'radio', 'radio', 'radio', 'checkbox'];
                 let array_data_id = ['menu_noodle_1', 'menu_noodle_2', 'menu_noodle_3', 'menu_noodle_5', 'menu_noodle_6'];
                 let isChecked = '';
 
@@ -266,9 +271,9 @@
                     menu_noodle_1 = '';
                     for(let i in data_){
                         let d = data_[i];
-                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;border-radius: 100%;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
-                        price = d.price === 0 ? '' : '+' + d.price;
+                        price = '+'+d.price;// === 0 ? '' : '+' + d.price;
                         price2 = d.price;
                         id = d.id;
                         isChecked = '';
@@ -530,7 +535,8 @@
     $("input[type=radio]").each(function(){
         $(this).prop('checked', false);
     }); 
-    $("input[type=checkbox]").prop('checked', false); 
+    // $('input[name="menu_noodle_5"]').prop('checked', false);
+    $("input[name='menu_noodle_5'][data-name='ธรรมดา']").prop('checked', true);
     $('#menu_noodle_1_name').text('');
     $('#menu_noodle_2_name').text('');
     $('#menu_noodle_3_name').text('');
