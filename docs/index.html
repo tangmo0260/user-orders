@@ -105,8 +105,10 @@
               <textarea id="note" class="form-control"></textarea>
               <div class="text-end mt-3">
                   <!-- <button class="btn btn-lg btn-secondary">พิมพ์</button> -->
-                  <button class="btn btn-lg btn-success" onclick="clearOrder()">Clear</button>
-                  <button class="btn btn-lg btn-success" onclick="saveOrder()">ส่ง Order</button>
+                  <button class="btn btn-lg btn-secondary mb-2" onclick="clearOrder()">Clear</button>
+                  <button class="btn btn-lg btn-success mb-2" onclick="saveOrder()" id="btn_submit_order">ส่ง Order</button>
+                  <a href="/user-orders" class="btn btn-lg btn-success mb-2" id="btn_cancel_update_order" style="display: none;">ยกเลิกการแก้ไข</a>
+                  <button class="btn btn-lg btn-warning mb-2" onclick="updateOrder()" id="btn_update_order" style="display: none;">แก้ไข Order X</button>
               </div>
           </div>
           </div>
@@ -370,7 +372,12 @@
                     idEdit = id;
                     let dt = JSON.parse(_data.orders[0].order_json);
                     dataList = dt;
-                    $('#table_no').val(_data.orders[0].table_number)
+                    $('#table_no').val(_data.orders[0].table_number);
+                    $('#btn_submit_order').hide();
+                    $('#btn_cancel_update_order').show();
+                    $('#btn_update_order').show();
+                    $('#btn_update_order').text('แก้ไข Order '+id);
+                    $('#btn_update_order').attr('onClick', 'updateOrder('+id+');');
                     setDataList();
                 }
             } else {
@@ -627,6 +634,34 @@ function saveOrder(){
     console.log('saveOrder', dataList)
     let data = {
         id: 0,
+        table_number: $('#table_no').val(),
+        // order_type: $('input[type=radio][name=order_type]').val(),
+        order_json: JSON.stringify(dataList),
+        total_price: parseInt($('#data_list_amount').text()),
+        order_status: 'I',//pending, successful
+        paid_status: 'N',//pending, successful
+        note: $('#note').text()
+    }
+    console.log('data', data)
+    ajaxCallPagePost('/api/orders/update', data).then((_data) => {
+            if (_data.messageStatus === 'success') {
+                alert('success');
+                clearOrder();
+            } else {
+                alert(_data.messageDescription);
+                // showToastsWarningBottomEndFade(_data.messageDescription)
+            }
+        }).catch((error) => {
+            console.log(error)
+        }).finally(function () {
+            // hideSpinnerBtn(getThis);
+        });
+}
+
+function updateOrder(id){
+    console.log('saveOrder', dataList)
+    let data = {
+        id: id,
         table_number: $('#table_no').val(),
         // order_type: $('input[type=radio][name=order_type]').val(),
         order_json: JSON.stringify(dataList),
