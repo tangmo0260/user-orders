@@ -524,6 +524,7 @@
             let nd = element;
             if(nd.key1 === name){
                 nd.key_num = element.key_num + 1;
+                nd.key_sum_amount = nd.key_num * price;
                 n.push(nd);
             }else{
                 n.push(element);
