@@ -2,9 +2,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" media="all">
 
-<link rel="stylesheet" href="./mystyle.css">
+<link rel="stylesheet" href="./mystyle.css" media="all">
 
 <title>รายการอาหาร</title> 
 
@@ -33,9 +33,18 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-end">
+            <input type="date" id="search_date" onchange="search()" />
+        </div>
+    </div>
   <div class="row">
     <div class="col-12">
         <h5>สรุปยอด: <span id="summary_price"></span></h5>
+        <h6>ก๋วยเตี๋ยว: <span id="summary_price_1"></span></h6>
+        <h6>น้ำสมุนไพร: <span id="summary_price_2"></span></h5>
+        <h6>ซาลาเปา/ติ่มซำ: <span id="summary_price_3"></span></h5>
+        <h6>ไอศกรีม: <span id="summary_price_4"></span></h5>
     </div>
   </div>
   <div class="row" style="overflow-y: auto;">
@@ -47,8 +56,8 @@
 <script>
     let dataList = [];
   $(document).ready(function(){
-    console.log('hi script')
-    getOrderInprogress();
+    $('#search_date').val(new Date().toISOString());
+    getOrder(new Date().toISOString());
   });
 
 
@@ -66,11 +75,16 @@ function ajaxCallPagePost(url, data) {
     });
 }
 
-function getOrderInprogress(){
-    console.log('getOrderInprogress')
+function search(){
+    console.log('search', $('#search_date').val())
+    getOrder($('#search_date').val());
+}
+
+function getOrder(date){
+    console.log('getOrder')
     let data = {
         id: 0,
-        order_date: '2023-08-09',
+        order_date: date,// '2023-08-09',
         action: ''
     }
     console.log('data', data)
@@ -78,27 +92,45 @@ function getOrderInprogress(){
             if (_data.messageStatus === 'success') {
                 console.log(_data)
                 let summary_price = 0;
+                let summary_price_1 = 0;
+                let summary_price_2 = 0;
+                let summary_price_3 = 0;
+                let summary_price_4 = 0;
                 let txt = '';
                 _data.orders.forEach(element => {
                     summary_price += element.total_price;
                     let dt = JSON.parse(element.order_json);
                     console.log(dt)
+                    
                     txt += `<div class="me-3" style="width: 300px;"><div class="card p-3" style="">`;
                     txt += `<div class="d-flex"><div class="text-start w-50"><a class="" href="#" onclick="deleteOrder(`+element.id+`)">ลบ</a></div>`;
                     txt += `<div class="text-end w-50"><a class="" href="/user-orders?id=`+element.id+`">แก้ไข</a></div></div>`;
-                    txt += `<p>เวลา: `+(element.created_at)+`</p>`;
+                    txt += `<div id="order_`+element.id+`">`;
+                    txt += `<div class="text-center mb-3"><img class="d-none" src="https://letjoys.sgp1.cdn.digitaloceanspaces.com/Production/orders/lg.jpg" width="150" /></div>`;
+                    txt += `<p class="mb-0">เวลา: `+(element.created_at)+`</p>`;
                     txt += `<p>โต๊ะ: `+(element.table_number === '' ? '-' : element.table_number)+`</p>`;
                         txt += `<table class="table" id="data_list_`+element.seq+`">
-                  <thead>
-                      <tr>
-                          <th>รายการ</th>
-                          <th class="text-center">จำนวน</th>
-                          <th class="text-end">ราคา</th>
-                      </tr>
-                  </thead>
-                  <tbody>`     
+                    <thead>
+                        <tr>
+                            <th>รายการ</th>
+                            <th class="text-center">จำนวน</th>
+                            <th class="text-end">ราคา</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
                     dt.forEach(element2 => {
-                    if(element2.key2 === ''){
+                        if(element2.category === 'ซาลาเปา/ติ่มซำ' || element2.category === undefined){
+                            summary_price_3 += parseInt(element2.key_sum_amount);
+                        }
+                        else if(element2.category === 'ไอศกรีม'){
+                            summary_price_4 += parseInt(element2.key_sum_amount);
+                        }else if(element2.category === 'เมนูเครื่องดื่ม' && (element2.key1 === 'น้ำลำไย' || element2.key1 === 'น้ำมะตูม' || element2.key1 === 'น้ำเก๊กฮวย' || element2.key1 === 'น้ํากระเจี๊ยบ')){
+                            summary_price_2 += parseInt(element2.key_sum_amount);
+                        }else{
+                            summary_price_1 += parseInt(element2.key_sum_amount);
+                        }
+
+                        if(element2.key2 === ''){
                             txt += `<tr>
                                     <td>`+element2.key1+`</td>
                                     <td class="text-center">`+element2.key_num+`</td>
@@ -111,47 +143,51 @@ function getOrderInprogress(){
                                     <td class="text-end">`+element2.key_sum_amount+`</td>
                                 </tr>`;
                         }
-                    
-
-                      
-
                     });
                     txt +=  `</tbody>
-                  <tfoot>
-                      <tr>
-                          <td></td>
-                          <td colspan="1">รวม</td>
-                          <td class="text-end" id="data_list_amount">`+element.total_price+`</td>
-                      </tr>
-                  </tfoot>
-              </table>`;
-
-              txt +=  `<div class='d-flex'>`;
-
-              if(element.order_status === 'I'){
-              txt += `<button class="btn btn-sm btn-success w-50" onclick="updateOrderStatus('S', `+element.id+`)">จัดส่ง</button>`;
-              }else if(element.order_status === 'S'){
-              txt += `<button class="btn btn-sm btn-secondary w-50" disabled>จัดส่งแล้ว</button>`;
-              }
-              if(element.paid_status === 'N'){
-                txt += `<button class="btn btn-sm btn-warning w-50" onclick="updatePaidStatus('Y', `+element.id+`)">ชำระเงิน</button>`;
-
-                }else{
-              txt += `<button class="btn btn-sm btn-secondary w-50" disabled>ชำระแล้ว</button>`;
-
-                }
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td colspan="1">รวม</td>
+                                <td class="text-end" id="data_list_amount">`+element.total_price+`</td>
+                            </tr>
+                        </tfoot>
+                    </table>`;
 
                     txt +=  `</div>`;
+                    txt +=  `<div class='d-flex mb-2'>`;
+
+                    if(element.order_status === 'I'){
+                        txt += `<button class="btn btn-sm btn-success w-50" onclick="updateOrderStatus('S', `+element.id+`)">จัดส่ง</button>`;
+                    }else if(element.order_status === 'S'){
+                        txt += `<button class="btn btn-sm btn-secondary w-50" disabled>จัดส่งแล้ว</button>`;
+                    }
+                    if(element.paid_status === 'N'){
+                        txt += `<button class="btn btn-sm btn-warning w-50" onclick="updatePaidStatus('Y', `+element.id+`)">ชำระเงิน</button>`;
+
+                    }else{
+                        txt += `<button class="btn btn-sm btn-secondary w-50" disabled>ชำระแล้ว</button>`;
+                    }
+                    txt +=  `</div>`;
+                    txt +=  `<button class="btn btn-sm btn-secondary w-50" onclick="printDiv('order_`+element.id+`')">พิมพ์</button>`;
                     txt +=  `</div></div>`;
                 });
 
                 $('#order-list').empty();
                 $('#order-list').append(txt);
-                $('#summary_price').text(summary_price);
+                $('#summary_price').text(summary_price.toLocaleString());
+                $('#summary_price_1').text(summary_price_1.toLocaleString());
+                $('#summary_price_2').text(summary_price_2.toLocaleString());
+                $('#summary_price_3').text(summary_price_3.toLocaleString());
+                $('#summary_price_4').text(summary_price_4.toLocaleString());
 
                 if(_data.orders.length === 0){
                     $('#order-list').append('ยังไม่มีรายการ');
-                $('#summary_price').text('0');
+                    $('#summary_price').text('0');
+                    $('#summary_price_1').text('0');
+                    $('#summary_price_2').text('0');
+                    $('#summary_price_3').text('0');
+                    $('#summary_price_4').text('0');
                 }
             } else {
                 alert(_data.messageDescription);
@@ -231,5 +267,50 @@ function deleteOrder(id){
     } else {
         // text = "You canceled!";
     }
+}
+function printDiv(id) 
+{
+  let divToPrint = document.getElementById(id);
+  var htmlToPrint = `` +
+        `<style type="text/css">
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 1rem;
+                color: #212529;
+                vertical-align: top;
+                border-color: #dee2e6;
+            }
+            .table>:not(:first-child) {
+                border-top: 2px solid currentColor;
+            }
+            .table>:not(caption)>*>* {
+                padding: 0.5rem 0.5rem;
+                border-bottom-width: 1px;
+            }
+            tr {
+                border-color: inherit;
+                border-style: solid;
+                border-width: 0;
+            }
+            .text-center {
+                text-align: center;
+            }
+            .text-end {
+                text-align: right;
+            }
+            .mb-0 {
+                margin-bottom: 0rem!important;
+            }
+            .mb-3 {
+                margin-bottom: 1rem!important;
+            }
+        </style>`;
+    htmlToPrint += divToPrint.outerHTML;
+  let newWin=window.open('','Print-Window');
+  newWin.document.open();
+  newWin.document.write('<html><body onload="window.print()">'+htmlToPrint+'</body></html>');
+  newWin.document.close();
+  setTimeout(function(){newWin.close();},10);
 }
 </script>

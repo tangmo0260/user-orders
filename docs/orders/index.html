@@ -78,7 +78,9 @@ function getOrderInprogress(){
                     txt += `<div class="me-3" style="width: 300px;"><div class="card p-3" style="">`;
                     txt += `<div class="d-flex"><div class="text-start w-50"><a class="" href="#" onclick="deleteOrder(`+element.id+`)">ลบ</a></div>`;
                     txt += `<div class="text-end w-50"><a class="" href="/user-orders?id=`+element.id+`">แก้ไข</a></div></div>`;
-                    txt += `<p>เวลา: `+(element.created_at)+`</p>`;
+                    txt += `<div id="order_table">`;
+                    txt += `<div class="text-center mb-3"><img class="d-none" src="https://letjoys.sgp1.cdn.digitaloceanspaces.com/Production/orders/lg.jpg" width="150" /></div>`;
+                    txt += `<p class="mb-0">เวลา: `+(element.created_at)+`</p>`;
                     txt += `<p>โต๊ะ: `+(element.table_number === '' ? '-' : element.table_number)+`</p>`;
                         txt += `<table class="table" id="data_list_`+element.seq+`">
                   <thead>
@@ -118,7 +120,8 @@ function getOrderInprogress(){
                   </tfoot>
               </table>`;
 
-              txt +=  `<div class='d-flex'>`;
+              txt +=  `</div>`;
+              txt +=  `<div class='d-flex mb-2'>`;
 
               if(element.order_status === 'I'){
               txt += `<button class="btn btn-sm btn-success w-50" onclick="updateOrderStatus('S', `+element.id+`)">จัดส่ง</button>`;
@@ -134,6 +137,7 @@ function getOrderInprogress(){
                 }
 
                     txt +=  `</div>`;
+                    txt +=  `<button class="btn btn-sm btn-secondary w-50" onclick="printDiv('order_table')">พิมพ์</button>`;
                     txt +=  `</div></div>`;
                 });
 
@@ -221,5 +225,51 @@ function deleteOrder(id){
     } else {
         // text = "You canceled!";
     }
+}
+
+function printDiv(id) 
+{
+  let divToPrint = document.getElementById(id);
+  var htmlToPrint = `` +
+        `<style type="text/css">
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 1rem;
+                color: #212529;
+                vertical-align: top;
+                border-color: #dee2e6;
+            }
+            .table>:not(:first-child) {
+                border-top: 2px solid currentColor;
+            }
+            .table>:not(caption)>*>* {
+                padding: 0.5rem 0.5rem;
+                border-bottom-width: 1px;
+            }
+            tr {
+                border-color: inherit;
+                border-style: solid;
+                border-width: 0;
+            }
+            .text-center {
+                text-align: center;
+            }
+            .text-end {
+                text-align: right;
+            }
+            .mb-0 {
+                margin-bottom: 0rem!important;
+            }
+            .mb-3 {
+                margin-bottom: 1rem!important;
+            }
+        </style>`;
+    htmlToPrint += divToPrint.outerHTML;
+  let newWin=window.open('','Print-Window');
+  newWin.document.open();
+  newWin.document.write('<html><body onload="window.print()">'+htmlToPrint+'</body></html>');
+  newWin.document.close();
+  setTimeout(function(){newWin.close();},10);
 }
 </script>
