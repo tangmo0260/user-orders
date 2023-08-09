@@ -132,6 +132,10 @@
                     <input type="radio" class="btn-check" name="options" id="option_4" autocomplete="off" value="option4">
                     <label class="btn" for="option_4">ซาลาเปา/ติ่มซำ</label>
                 </div>
+                <div class="options">
+                    <input type="radio" class="btn-check" name="options" id="option_5" autocomplete="off" value="option5">
+                    <label class="btn" for="option_5">ไอศกรีม</label>
+                </div>
 
             </div>
         </div>
@@ -235,6 +239,18 @@
             </div>
         </div>
 
+
+        <div class="tab__option" id="option5" style="display: none;">
+            <div>
+                <div>
+                  <div class="mb-1 py-3">
+                      <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-3 text-center" id="menu_option5">
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
         <div class="tab__option" id="option4" style="display: none;">
             <div>
                 <div>
@@ -312,14 +328,14 @@
 
                 }
                     //////
-                let array_data_id2 = ['menu_option2','menu_option3','menu_option4'];
-                let array_data2 = ['เมนูเพิ่มเติม', 'เมนูเครื่องดื่ม', 'ซาลาเปา/ติ่มซำ'];
+                let array_data_id2 = ['menu_option2','menu_option3','menu_option4', 'menu_option5'];
+                let array_data2 = ['เมนูเพิ่มเติม', 'เมนูเครื่องดื่ม', 'ซาลาเปา/ติ่มซำ', 'ไอศกรีม'];
                 for(let a in array_data2){
                     let data_ = _data.menu_noodles.filter(s=>s.category_th === array_data2[a]);
                     menu_noodle_1 = '';
                     for(let i in data_){
                         let d = data_[i];
-                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 90px;" src="`+ d.image_url +`" />` : ``;
+                        img = d.image_url !== '' ? `<img style="width: -webkit-fill-available; max-height: 140px; object-fit: cover;" src="`+ d.image_url +`" />` : ``;
                         name = d.name_th;
                         price = d.price;
                         id = d.id;
