@@ -452,7 +452,7 @@
 
     let n3 = '';
     $('input[name="menu_noodle_3"]:checked').each(function(){
-        n3 += $(this).attr('data-name') + ' ';
+        n3 += $(this).attr('data-name');
         sum_amount += parseInt($(this).attr('data-price'));
     });
     $('#menu_noodle_3_name').text(n3);
